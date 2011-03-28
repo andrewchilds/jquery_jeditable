@@ -52,6 +52,7 @@
   * @param Function options[onsubmit] function(settings, original) { ... } called before submit
   * @param Function options[onreset]  function(settings, original) { ... } called before reset
   * @param Function options[onerror]  function(settings, original, xhr) { ... } called on error
+  * @param Function options[onready]  function(settings, original, xhr) { ... } called when finished rendering
   *
   * @param Hash    options[ajaxoptions]  jQuery Ajax options. See docs.jquery.com.
   *
@@ -94,6 +95,7 @@
         var onedit   = settings.onedit   || function() { };
         var onsubmit = settings.onsubmit || function() { };
         var onreset  = settings.onreset  || function() { };
+        var onready  = settings.onready  || function() { };
         var onerror  = settings.onerror  || reset;
 
         /* Show tooltip. */
@@ -374,6 +376,8 @@
 
                     return false;
                 });
+                
+                onready.apply(form, [settings, self]);
             });
 
             /* Privileged methods */
